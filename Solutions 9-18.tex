@@ -1,0 +1,326 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,latexsym}
+
+\parindent 0in
+\addtolength{\textwidth}{52mm}
+\addtolength{\oddsidemargin}{-28mm}
+\addtolength{\evensidemargin}{-26mm}
+\addtolength{\topmargin}{-20mm}
+\addtolength{\textheight}{40mm}
+
+\newcommand{\ds}{\displaystyle}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+\newcommand{\vc}[1]{\begin{pmatrix}#1\end{pmatrix}}
+\newcommand{\tmat}[1]{{\left(\begin{array}{rrr}#1\end{array}\right)}}
+\newcommand{\qmat}[1]{{\left(\begin{array}{rrrr}#1\end{array}\right)}}
+\newcommand{\pmat}[1]{{\left(\begin{array}{rrrrr}#1\end{array}\right)}}
+\newcommand{\proof}{{\sc Proof.}\quad}
+\newcommand{\qed}{\quad$\square$}
+
+\newcommand{\moveup}{\begin{picture}(0,0)(0,0)\end{picture}\vspace*{-8.15mm}}
+\newcommand{\upabit}{\begin{picture}(0,0)(0,0)\end{picture}\vspace*{-5mm}}
+
+\newcommand{\ra}[1]{\xrightarrow{#1}}
+\newcommand{\dra}[2]{\begin{array}{c}\xrightarrow{\text{\scriptsize$#1$}}\\[-2mm]{\text{\scriptsize$#2$}}\end{array}}
+
+
+\date{}
+\author{}
+\title{\sc Solutions to MATH3411 Problems 10--18}
+
+
+\begin{document} \maketitle
+
+\vspace*{-10mm}
+
+\noindent{\bf 10.}\moveup
+\begin{itemize}
+  \item[{a)}]
+    We could list the 13 cards of the hand by an (ordered) sequence of 13 6-bit binary numbers $n_1\cdots n_{13}$,
+    using $13\times6 = 78$ bits in all.
+  \item[{b)}]
+     There are $\binom{52}{13} = 635013559600$, or about $\frac{2}{3}$ of a trillion, different bridge hands,
+     which is more than $2^{39} = 549755813888$.
+     We therefore need at least 40 bits to represent a hand.
+
+     To represent a hand, we could for instance list the 52 cards in some order
+     and define the binary 52-bit word ${\bf w} = w_1\cdots w_{52}$
+     where $w_i = 1$ if card $i$ is in the hand and $w_0 = 0$ if it is not.
+  \item[{c)}]
+     There are $\frac{52!}{(13!)^4} \approx 5\times10^{28}$ different bridge deals,
+     which is more than $2^{95} \approx 4\times10^{28}$.\\
+     We therefore need at least 96 bits to represent a bridge deal.
+
+     To represent a deal, we could for instance list the 52 cards in some order
+     and define the binary 104-bit word ${\bf x} = x_1\cdots x_{52}$
+     where $x_i$ is the hand that card $i$ is in, written in binary (00, 01, 10, 11).
+
+     We can improve this a little by deleting $x_{52}$ to get a 102-bit word
+     which tells us how the first 51 cards have been placed in the 4 hands.
+     Just one hand is missing a card which must be card 52.
+
+     To further shorten our representation, also delete $x_{51}$;
+     we now have the 100-bit word $x_1\cdots x_{50}$
+     which tells us how the first 50 cards have been placed in the 4 hands.
+     To reconstruct the hand, we just need to place card 51 and card 52,
+     either into two hands that are missing one card
+     or into one hand that is missing two
+     (we can see which hand(s) this(these) are from the first 50 placements).
+     Suppose that card 51 belongs to hand $i$
+     and that card 52 belongs to hand $j$.
+     Now define an extra bit $y_{51}$ by letting $y_{51}=0$ if $i\leq j$,
+     and $y_{51}=1$ otherwise.
+     From $y_{51}$, we can see where cards 51 and 52 belong,
+     so the 101-bit codeword $x_1\cdots x_{50}y_{51}$ describes the bridge deal completely.     
+\end{itemize}
+
+\bigskip
+\noindent{\bf 11.} \moveup
+\begin{center}
+  \begin{tabular}{cc|cccccccc}
+    A & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 1\\
+    u & 1 & 1 & 1 & 1 & 0 & 1 & 0 & 1\\
+    g & 1 & 1 & 1 & 0 & 0 & 1 & 1 & 1\\
+      & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0\\
+    2 & 1 & 0 & 1 & 1 & 0 & 0 & 1 & 0\\
+    0 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0\\
+    1 & 1 & 0 & 1 & 1 & 0 & 0 & 0 & 1\\
+    2 & 1 & 0 & 1 & 1 & 0 & 0 & 1 & 0\\\hline
+    r & 0 & 1 & 1 & 1 & 0 & 0 & 1 & 0
+  \end{tabular}
+\end{center}
+We therefore encode {\bf Aug 2012} as {\bf Aug 2012r}.
+
+\newpage
+\noindent{\bf 12.} \moveup
+\begin{itemize}
+  \item[{a)}] \moveup
+    \begin{center}
+      \begin{tabular}{rc|cccc}
+          1 & 1 & 0 & 0 & 0 & 1\\
+         13 & 1 & 1 & 1 & 0 & 1\\
+          2 & 1 & 0 & 0 & 1 & 0\\
+          6 & 0 & 0 & 1 & 1 & 0\\\hline
+          8 & 1 & 1 & 0 & 0 & 0\\
+      \end{tabular}
+    \end{center}
+    We see that 1,13,2,6 has check integer~8.
+  \item[{b)}] \moveup
+    \begin{center}
+      \begin{tabular}{rc|cccc}
+           2 &    1 & 0 & 0 &    1 & 0\\
+          11 &    1 & 1 & 0 &    1 & 1\\
+      {\bf14}&{\bf0}& 1 & 1 &{\bf1}& 0\\
+           3 &    0 & 0 & 0 &    1 & 1\\\hline
+             &    0 & 0 & 1 &{\bf1}& 0\\
+      \end{tabular}
+    \end{center}
+    If there were no errors, then the message would be 2,11,{\bf 14},3.\\
+    However, the third row and second-last column have incorrect check-bits,
+    so, assuming just a single error, the third row is corrected to {\bf0}11{\bf0}0, or 12.
+    The corrected and decoded message is then 2,11,12,3.
+\end{itemize}
+
+\bigskip
+\noindent{\bf 13.}\moveup
+\begin{itemize}
+  \item[{a)}] We solve $H\vec{x} = 0$ (we omit the zero-column in the following matrices):
+   \begin{align*}
+    \pmat{
+     1 & 1 & 1 & 1 & 0\\
+     0 & 1 & 1 & 0 & 1\\
+     1 & 0 & 1 & 0 & 0}
+    \ra{R_3 = R_3 + R_1}
+    \pmat{
+     1 & 1 & 1 & 1 & 0\\
+     0 & 1 & 1 & 0 & 1\\
+     0 & 1 & 0 & 1 & 0}
+    \dra{R_1 = R_1 + R_2}{R_3 = R_3 + R_2}
+   &\pmat{
+     1 & 0 & 0 & 1 & 1\\
+     0 & 1 & 1 & 0 & 1\\
+     0 & 0 & 1 & 1 & 1}\\
+    \ra{R_3 = R_3 + R_1}
+   &\pmat{
+     1 & 0 & 0 & 1 & 1\\
+     0 & 1 & 0 & 1 & 0\\
+     0 & 0 & 1 & 1 & 1}
+   \end{align*}
+    Writing the solution vectors as $(x_1\cdots x_5)^T$
+    and re-naming the non-leading variables $x_4 = \lambda$ and $x_5 = \mu$ where $\lambda,\mu\in\{0,1\}$,
+    we see that
+    \[
+      \begin{array}{ccccccccc}
+        x_1 &      &     &+&\lambda&+&\mu&=&0\\
+            & x_2  &     &+&\lambda& &   &=&0\\
+            &      & x_3 &+&\lambda&+&\mu&=&0
+      \end{array}
+    \]
+    In other words, we find the solutions (working modulo 2) to be
+    \[
+        \vc{\lambda+\mu\\\lambda\\\lambda+\mu\\\lambda\\\mu}
+      = \lambda\vc{1\\1\\1\\1\\0} + \mu\vc{1\\0\\1\\0\\1}\quad\text{where}\quad\lambda,\mu\in\{0,1\}\,.
+    \]
+    In other words,
+    the code $\mathcal{C}$ consists of the codewords
+    \[
+      \mathbf{x} = 00000\,,\: 111110\,,\: 10101\,,\: 01011
+    \]
+ \item[{b)}] For instance, columns 1, 2, and 3 (none is the sum of the others).
+ \item[{c)}] For instance, columns 2, 4, and 5 (column 2 is the sum of the other two).
+ \item[{d)}] None of the columns are equal (parallel in $\mathbb{Z}_2$).
+ \item[{e)}] Any four columns form a submatrix of $H$ which must have rank less than or equal to $\text{rank}\, H = 3$.
+   Therefore, no four columns are linearly independent.
+\end{itemize}
+
+\bigskip
+\noindent{\bf 14.}\moveup
+\begin{itemize}
+  \item[{a)}]
+    We are looking for a codeword of the form $x_1 x_2 1 x_4 0 1 0$ that satisfies the congruences
+    \[
+      \begin{array}{ccccccccccccc}
+        x_1 &      &+& 1    &   &+& 0 & &   &+& 0 &=& 0\\
+            & x_2  &+& 1    &   & &   &+& 1 &+& 0 &=& 0\\
+            &      & &      &x_4&+& 0 &+& 1 &+& 0 &=& 0\\
+      \end{array}
+    \]
+    We see that $x_1 = 1$, $x_2 = 0$, and $x_4 = 1$, so the Hamming (7,4) code encodes 1010 as 1011010.
+  \item[{b)}]
+    Calculate the syndrome $S(\vec{y}) = H\vec{y}$ of $\vec{y} = (1001111)^T$:\vspace*{-7mm}
+  \[
+      S(\vec{y})
+    = H\vec{y}
+    = \vc{1& 0& 1& 0& 1& 0& 1\\
+          0& 1& 1& 0& 0& 1& 1\\
+          0& 0& 0& 1& 1& 1& 1}
+      \vc{1\\0\\0\\1\\1\\1\\1}
+    = \vc{1\\0\\0}
+  \]
+  We see that there is at least one error.
+  Assuming that there is just a single error, the syndrome $S(\vec{y})$ tells us that there is an error in bit number 001, i.e. 1, of 1001111.
+  In other words, the correct codeword is 00\underline{0}1\underline{111}, which decodes to 0111.
+\end{itemize}
+
+\bigskip
+\noindent{\bf 15.}\vspace*{-5mm}
+\[
+  H = \left(\begin{array}{ccccccccccccccc}
+        1&0&1&0&1&0&1&0&1&0&1&0&1&0&1\\
+        0&1&1&0&0&1&1&0&0&1&1&0&0&1&1\\
+        0&0&0&1&1&1&1&0&0&0&0&1&1&1&1\\
+        0&0&0&0&0&0&0&1&1&1&1&1&1&1&1\end{array}\right)
+\]
+Set $\vec{y} = (001010101110110)^T$; then
+%               101010101010101
+%               011001100110011
+%               000111100001111
+%               000000011111111
+\[
+  H\vec{y} = \vc{0\\1\\0\\1}
+\]
+so the error is in position 1010, or 10,
+and the corrected word is 00\underline{1}0\underline{101}0\underline{1010110}.\\
+The decoded word is then 11011010110.
+
+
+%\bigskip
+\newpage
+\noindent{\bf 16.}\moveup
+\begin{itemize}
+  \item[{a)}]
+    We are looking for a codeword of the form $x_1 x_2 1 x_4 0 1 0 x_8 1 0 1 0 1 0 1$ that satisfies the congruences
+    \[
+      \begin{array}{cccccccccccccccccccccccccccc}
+        x_1 &      &+& 1    &   &+& 0 & &   &+& 0 &    &+& 1 & &   &+& 1 & &   &+& 1 & &   &+& 1 &=& 0\\
+            & x_2  &+& 1    &   & &   &+& 1 &+& 0 &    & &   &+& 0 &+& 1 & &   & &   &+& 0 &+& 1 &=& 0\\
+            &      & &      &x_4&+& 0 &+& 1 &+& 0 &    & &   & &   & &   &+& 0 &+& 1 &+& 0 &+& 1 &=& 0\\
+            &      & &      &   & &   & &   & &   &x_8 &+& 1 &+& 0 &+& 1 &+& 0 &+& 1 &+& 0 &+& 1 &=& 0\\
+      \end{array}
+    \]
+    We see that $x_1 = 1$, $x_2 = 0$, $x_4 = 1$, and $x_8 = 0$,
+    so the Hamming (15,11) code encodes 10101010101 as 101101001010101.
+  \item[{b)}]
+    Calculate the syndrome $S(\vec{y}) = H\vec{y}$ of $\vec{y} = (011100010111110)^T$:\vspace*{-10mm}
+  \[
+      S(\vec{y})
+    = H\vec{y}
+    = \left(\begin{array}{ccccccccccccccc}
+        1&0&1&0&1&0&1&0&1&0&1&0&1&0&1\\
+        0&1&1&0&0&1&1&0&0&1&1&0&0&1&1\\
+        0&0&0&1&1&1&1&0&0&0&0&1&1&1&1\\
+        0&0&0&0&0&0&0&1&1&1&1&1&1&1&1\end{array}\right)
+      \vc{0\\[-1mm]1\\[-1mm]1\\[-1mm]1\\[-1mm]0\\[-1mm]0\\[-1mm]0\\[-1mm]1\\[-1mm]0\\[-1mm]1\\[-1mm]1\\[-1mm]1\\[-1mm]1\\[-1mm]1\\[-1mm]0}
+    = \vc{1\\1\\0\\0}
+  \]
+  We see that there is at least one error.
+  Assuming that there is just a single error, the syndrome $S(\vec{y})$ tells us that
+  there is an error in bit number 0011, i.e. 3, of $\vec{y}$.
+  In other words, the correct codeword is
+  01\underline{0}1\underline{000}1\underline{0111110}.\\
+  The decoded word is then 00000111110.
+\end{itemize}
+
+
+\bigskip
+\noindent{\bf 17.}
+There are $2^n$ random sequences of $n = 2^m - 1$ 0s and 1s.\\
+The number of codewords in a Hamming code of length $n$
+is $2^k = 2^{n - m} = 2^n/2^m = \frac{2^n}{n+1}$.\\
+Hence, the probability that a random sequence of $n$ 0s and 1s
+is part of a Hamming code of length $n$ is\vspace*{-1mm}
+\[
+  \Bigl(\frac{2^n}{n+1}\Bigr)/2^n = \frac{1}{n+1}\,.
+\]
+
+%k = n - m
+%k = 2^m - m - 1 = 2^m + k - n
+%m = log_2 n
+%k = n - log_2 n
+
+%\bigskip
+\noindent{\bf 18.}
+Let $X$ be the number of errors; then $X$ is $(n,p)$-binomially distributed with $n = 7$ and $p = 0.001$.
+\begin{itemize}
+  \item[{a)}] $P(X = 0) =     (1-p)^7 \approx 0.993021$
+  \item[{b)}] $P(X = 1) = 7p  (1-p)^6 \approx 0.006958$
+  \item[{c)}] $P(X = 2) + \cdots + P(X = 7) = 1 - P(X = 0) - P(X = 1) \approx 1 - 0.993021 - 0.006958 = 0.000021$
+  \item[{d)}] Errors will be undetected if $S(\vec{y}) = 0$,
+     and this will happen when there are errors in any of the following sets of bits:\vspace*{-1mm}
+     \[
+       123\:\:
+       145\:\:
+       167\:\:
+       246\:\:
+       257\:\:
+       347\:\:
+       356\:\:
+       1247\:\:
+       1256\:\:
+       1346\:\:
+       1357\:\:
+       2345\:\:
+       2367\:\:
+       4567\:\:
+       1234567
+     \]
+     For instance, errors in the first three bits of some codeword $\vec{x}$ give\vspace*{-3mm}
+     \[
+         S(\vec{x}+(1110000)^T)
+       = H(\vec{x} + e_1 + e_2 + e_3)
+       = H\vec{x} + He_1 + He_2 + He_3
+       = \vec{0} + \vc{0\\0\\0} + \vc{1\\0\\0} + \vc{0\\1\\0} + \vc{1\\1\\0}
+       = \vec{0}
+     \]
+     The probability of any of those fifteen above sets of errors occurring is
+     \[
+         7p^3(1-p)^4
+       + 7p^4(1-p)^3
+       +  p^7
+       \approx 7.0\times 10^{-9}\,.
+     \]
+\end{itemize}
+
+
+
+\end{document}

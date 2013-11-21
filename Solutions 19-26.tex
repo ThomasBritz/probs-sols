@@ -1,0 +1,272 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,latexsym}
+
+\parindent 0in
+\addtolength{\textwidth}{52mm}
+\addtolength{\oddsidemargin}{-28mm}
+\addtolength{\evensidemargin}{-26mm}
+\addtolength{\topmargin}{-20mm}
+\addtolength{\textheight}{40mm}
+
+\newcommand{\ds}{\displaystyle}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+\newcommand{\vc}[1]{\begin{pmatrix}#1\end{pmatrix}}
+\newcommand{\tmat}[1]{{\left(\begin{array}{rrr}#1\end{array}\right)}}
+\newcommand{\qmat}[1]{{\left(\begin{array}{rrrr}#1\end{array}\right)}}
+\newcommand{\pmat}[1]{{\left(\begin{array}{rrrrr}#1\end{array}\right)}}
+\newcommand{\proof}{{\sc Proof.}\quad}
+\newcommand{\qed}{\quad$\square$}
+
+\newcommand{\moveup}{\begin{picture}(0,0)(0,0)\end{picture}\vspace*{-8.15mm}}
+\newcommand{\upabit}{\begin{picture}(0,0)(0,0)\end{picture}\vspace*{-5mm}}
+
+\newcommand{\ra}[1]{\xrightarrow{#1}}
+\newcommand{\dra}[2]{\begin{array}{c}\xrightarrow{\text{\scriptsize$#1$}}\\[-2mm]{\text{\scriptsize$#2$}}\end{array}}
+
+
+\date{}
+\author{}
+\title{\sc Solutions to MATH3411 Problems 19--26}
+
+
+\begin{document} \maketitle
+
+\vspace*{-10mm}
+
+\noindent{\bf 19.}\upabit
+\begin{itemize}
+  \item[{a)}] {\bf Proof}.
+      Let $\vec{x}\in C$ be a non-zero codeword with minimal weight:
+      $w(\vec{x}) = w(C)$.\\
+      Since $C$ is linear, it contains the zero vector $\vec{0}$,
+      so
+      \[
+          d(C)
+        = \min\{d(\vec{u},\vec{v})\::\: \vec{u},\vec{v}\in C,\,\vec{x}\neq\vec{y}\}
+        \leq d(\vec{x},\vec{0})
+        = w(\vec{x})
+        = w(C)\,.
+      \]
+      Similarly, let $\vec{u},\vec{v}\in C$ be distinct codewords
+      with minimal distance between them: $d(\vec{u},\vec{v}) = d(C)$.\\
+      Since $C$ is linear, it contains $\vec{u}-\vec{v}$,
+      so
+      \[
+          w(C)
+        = \min\{w(\vec{z})\::\: \vec{z}\in C,\,\vec{z}\neq\vec{0}\}
+        \leq w(\vec{u}-\vec{y})
+        = d(\vec{u}-\vec{y},\vec{0})
+        = d(\vec{u},\vec{y})
+        = d(C)\,.
+      \]
+      We see that $d(C)\leq w(C)$ and that $w(C)\leq d(C)$, so $d(C) = w(C)$. \hfill$\square$
+  \item[{b)}] {\bf Proof}.
+      From Part a), we know that $d = d(C) = w(C)$,
+      so there is a codeword $\vec{v}\in C$ with $w(\vec{v}) = d$.\\
+      Let $I$ be the set of $d$ positions of $\vec{v}$'s non-zero entries: $i\in I$ if and only if $v_i\neq 0$.\\
+      Since $v\in C$, we see that $H\vec{v} = 0$,
+      or in terms of $H$'s columns $h_i$,
+      $\sum_{i\in I} v_ih_i = \vec{0}$.\\
+      We see that the $d$ columns $\{h_i\::\: i\in I\}$ are linearly independent.\\
+      In other words, the minimal number of dependent columns of $H$ is at most $d$.
+
+      Conversely, consider a minimal number of linearly dependent columns of $H$,
+      say $\{h_i\::\: i\in I\}$.\\
+      Since they are linearly dependent,
+      we can find $d$ non-zero values $\{a_i\::\: i\in I\}$
+      that $\sum_{i\in I} a_ih_i = \vec{0}$.
+      Define $\vec{v}$ to be the vector with entries $h_i = a_i$ if $i\in I$ and $h_i = 0$ otherwise.
+      Then $H\vec{v} = \vec{0}$,
+      so $\vec{v} \in C$.
+      Also, $d \leq w(\vec{v}) = |I|$.
+      Since $|I|$ is the minimum numbers of linearly dependent columns of $H$,
+      we see that $d$ is the minimum numbers of linearly dependent columns of $H$.
+      \hfill$\square$
+\end{itemize}
+
+\bigskip
+\noindent{\bf 20.}\upabit
+\begin{itemize}
+  \item[{a)}] By Problem {\bf 20b}, we know that $d$ is the minimum number of dependent columns of $H$.\\
+     Since two columns of $H$ are parallel (identical), $d\geq 3$.\\
+     In fact, the first three columns of $H$ are dependent,
+     so $d = 3$.
+  \item[{b)}] Writing $d = 2t + 1$, we see that $H$ can detect and correct $t = 1$ error.
+  \item[{c)}]
+    \begin{itemize}
+      \item[(i)]   $\vc{1 &1 &1 &1 &0 &0\\
+                        0 &1 &1 &0 &1 &0\\
+                        1 &0 &1 &0 &0 &1}
+                    \vc{0\\1\\0\\1\\1\\0}
+                  = \vc{0\\0\\0}
+                  = \vec{0}$
+                  \\We see that 010110 is a codeword and does not need correcting.
+                    Decoding gives 010.
+      \item[(ii)]  $\vc{1 &1 &1 &1 &0 &0\\
+                        0 &1 &1 &0 &1 &0\\
+                        1 &0 &1 &0 &0 &1}
+                    \vc{0\\1\\0\\0\\0\\1}
+                  = \vc{1\\1\\1}$
+                  \\This is the 3rd column of $H$,
+                    so the 3rd bit is incorrect (assuming just a single bit-error):\\
+                    the correct codeword is then 011001.
+                    Decoding gives 011.
+      \item[(iii)]$\vc{1 &1 &1 &1 &0 &0\\
+                       0 &1 &1 &0 &1 &0\\
+                       1 &0 &1 &0 &0 &1}
+                   \vc{1\\0\\0\\1\\1\\0}
+                 = \vc{0\\1\\1}$
+                  \\This is not one of the columns of $H$,
+                    so we see that 100110 has at least two errors.
+                    However, we cannot determine which they might be:
+                    for instance, the syndrome could be the sum of columns 1 and 2 of $H$ -
+                    or it could be the sum of columns 5 and 6, say.
+     \end{itemize}
+  \item[{d)}] Row-reduce $H$:
+                  $\vc{1 &1 &1 &1 &0 &0\\
+                       0 &1 &1 &0 &1 &0\\
+                       1 &0 &1 &0 &0 &1}
+%                   \ra{R_3 = R_3 + R_1}
+%                   \vc{1 &1 &1 &1 &0 &0\\
+%                       0 &1 &1 &0 &1 &0\\
+%                       0 &1 &0 &1 &0 &1}
+%                   \dra{R_1 = R_2 + R_1}{R_3 = R_2 + R_3}
+%                   \vc{1 &0 &0 &1 &1 &0\\
+%                       0 &1 &1 &0 &1 &0\\
+%                       0 &0 &1 &1 &1 &1}
+%                   \ra{R_2 = R_2 + R_3}
+                   \longrightarrow\cdots\longrightarrow
+                   \vc{1 &0 &0 &1 &1 &0\\
+                       0 &1 &0 &1 &0 &1\\
+                       0 &0 &1 &1 &1 &1} = H'$
+                   \\[2mm]Then $G' =
+                   \vc{1 &1 &1 & 1 &0 &0\\
+                       1 &0 &1 & 0 &1 &0\\
+                       0 &1 &1 & 0 &0 &1}$.
+                   \\[2mm]This also serves as a generator matrix for $H$.
+  \item[{e)}] Let $H^+ =
+                   \vc{1 &1 &1 &1 &1 &1 &1\\
+                       0 &1 &1 &1 &1 &0 &0\\
+                       0 &0 &1 &1 &0 &1 &0\\
+                       0 &1 &0 &1 &0 &0 &1}$.
+              This is just $H$ with an added $\vec{0}$-column and an added $\vec{1}$-row.
+              There is no zero column or any two parallel (identical) columns;
+              hence, the minimal distance $d^+$ of the code $C^+$ defined by $H^+$ is
+              at least 3. Furthermore, there are no three columns of $H^+$ that
+              are linearly independent since in $\mathbb{Z}_2$, this mean that
+              one of the three vectors were the sum of the other two - which cannot
+              happen here, since the first coordinates of the columns all equal~1.
+              Hence, $d^+ \geq 4$. Since $d^+\leq d + 1 = 4$, we see that
+              the extended code $C^+$ has minimum distance $d^+ = 4$.
+\end{itemize}
+
+\bigskip
+\noindent{\bf 21.}\upabit
+\begin{itemize}
+  \item[{a)}] We wish to find a code $C$ with at least $|C|\geq 4$ codewords, of length $n$ say,
+              and minimum distance $d \geq 2t+1 = 3$ for $t=1$ (the number of errors that we want to correct).\\
+              The Sphere Packing Bound gives $|C|\sum_{i=0}^t \leq 2^n$; i.e., $4(1+n)\leq 2^n$.\\
+              We can quickly check that this is not true for $n = 1,\ldots,4$,
+              so we must have that $n\geq 5$.\\
+              The following parity check matrix defines a code with length $n=5$ and $d=3$:
+            \[H = \vc{1 &0 &0 &1 &1\\
+                      0 &1 &0 &1 &1\\
+                      0 &0 &1 &1 &0}\]
+              Alternatively, the following generator matrix defines a (different) code $C$ with length $n = 5$ and $d = 3$:
+            \[G = \vc{1 &1 &1 &0 &0\\
+                      0 &0 &1 &1 &1}\]
+             \\It has just 4 codewords, which is perfect for our purposes.
+  \item[{b)}] We wish to find a code $C$ with at least $|C|\geq 4$ codewords, of length $n$ say,
+              and minimum distance $d \geq 2t+1 = 5$ for $t=2$ (the number of errors that we want to correct).\\
+              The Sphere Packing Bound gives $|C|\sum_{i=0}^t \leq 2^n$; i.e., $4(1+n+\binom{n}{2})\leq 2^n$.\\
+              We can quickly check that this is not true for $n = 1,\ldots,6$,
+              so we must have that $n\geq 7$.\\
+              The following generator matrix defines a code $C$ with length $n = 8$ and $d = 5$:
+            \[G = \vc{1 &1 &1 &1 &1 &0 & 0& 0\\
+                      0 &0 &0 &1 &1 &1 & 1& 1}\]
+             \\It has just 4 codewords, which is perfect for our purposes.
+\end{itemize}
+
+\bigskip
+\noindent{\bf 22.}\upabit
+\begin{itemize}
+  \item[{a)}] Choose the $\rho$ differing coordinates in $\binom{n}{\rho}$ ways;
+              for each of the $\rho$ coordinates,
+              there are $r-1$ symbols that replace the present one.
+              All in all, there are than $\binom{n}{\rho}(r-1)^\rho$ vectors in $\mathbb{Z}_r^n$
+              at distance $\rho$ from $\vec{x}$.
+  \item[{b)}] $\ds|C|\sum_{i=0}^t \binom{n}{i}(r-1)^i \leq r^n$.
+  \item[{c)}] For each radix $r$ Hamming code $C$, $t=1$ and $|C| = r^{n-k}$ for some $k$
+              where
+              \[
+                n  = (r^k - 1)/(r-1) = \sum_{j=0}^{k-1} r^j
+              \]
+              is the length of $C$.
+              (The columns of $H$ are all the vectors of $\mathbb{Z}_r$, except $\vec{0}$,
+              and except that each set of $r-1$ parallel vectors is replaced by just a single vector.)
+              Therefore,
+              \[
+                  |C|\sum_{i=0}^t \binom{n}{i}(r-1)^i
+                = r^{n-k} (1 + n(r-1))
+                = r^{n-k} (1 + (r^k-1))
+                = r^n\,.
+              \]
+\end{itemize}
+
+\bigskip
+\noindent{\bf 23.}\upabit
+\begin{itemize}
+  \item[{a)}] $H = \vc{1 & 0 & 1 & 1 & 1 & 1\\
+                       0 & 1 & 1 & 2 & 3 & 4}$
+  \item[{b)}] $H\vec{y} = \vc{1 & 0 & 1 & 1 & 1 & 1\\
+                              0 & 1 & 1 & 2 & 3 & 4}
+                          \vc{4\\ 1\\ 0\\ 0\\ 1\\ 3}
+                        = \vc{8\\16}
+                        = \vc{3\\1}$
+            \\This is 3 times the 4th column, so (assuming a single error)
+            the 2nd entry of $\vec{y}$ is 3 too big;
+            subtracting 3 then gives the corrected codeword is then 410213.
+            Decoding then gives the message 0213.
+\end{itemize}
+
+\bigskip
+\noindent{\bf 24.}\upabit
+\begin{itemize}
+  \item[{a)}] Setting $x_3 = 2$ and $x_4 = 1$ gives us
+    \begin{align*}
+      x_1 +  x_2 + 3\times 2 + 2\times 1 \equiv 0\pmod{5}\\
+      x_1 + 2x_2 + 4\times 2 + 3\times 1 \equiv 0\pmod{5}
+    \end{align*}
+    or, in other words,
+    \begin{align*}
+      x_1 +  x_2 \equiv 2\pmod{5}\\
+      x_1 + 2x_2 \equiv 4\pmod{5}
+    \end{align*}
+    Quickly solving this gives us $x_1 = 0$ and $x_2 = 2$,
+    so 21 encodes as 0221.
+    \\(Check: this is indeed a codeword.)
+  \item[{b)}] Just check the two congruences:\\
+              (1) Invalid \: (2) Valid \: (3) Invalid \: (4) Valid
+\end{itemize}
+
+\newpage
+\noindent{\bf 25.}\upabit
+\begin{itemize}
+  \item[{a)}] Neither (eg., $0 + 0 = 00$).
+  \item[{b)}] Not instantaneous (eg., 0 is a prefix of 01) but UD.
+  \item[{c)}] Neither (eg., $001 + 0 = 0010$)
+  \item[{d)}] Instantaneous.
+\end{itemize}
+
+\bigskip
+\noindent{\bf 26.}\quad
+The code is not UD; for instance, 
+ $\vec{c}_4\vec{c}_6\vec{c}_2\vec{c}_3
+= \vec{c}_7\vec{c}_1\vec{c}_5\vec{c}_6$:
+\[
+    \underbrace{1110}_{\vec{c}_4}\underbrace{010100}_{\vec{c}_6}\underbrace{0011}_{\vec{c}_2}\underbrace{1001}_{\vec{c}_3}
+  = \underbrace{11100}_{\vec{c}_7}\underbrace{101}_{\vec{c}_1}\underbrace{00001}_{\vec{c}_5}\underbrace{11001}_{\vec{c}_6}\,.
+\]
+
+
+\end{document}

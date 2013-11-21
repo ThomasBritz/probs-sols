@@ -1,0 +1,402 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,latexsym}
+
+\parindent 0in
+\addtolength{\textwidth}{52mm}
+\addtolength{\oddsidemargin}{-28mm}
+\addtolength{\evensidemargin}{-26mm}
+\addtolength{\topmargin}{-20mm}
+\addtolength{\textheight}{40mm}
+
+\newcommand{\ph}{\phantom}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\tvs}{\textvisiblespace}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+\newcommand{\vc}[1]{\begin{pmatrix}#1\end{pmatrix}}
+\newcommand{\tmat}[1]{{\left(\begin{array}{rrr}#1\end{array}\right)}}
+\newcommand{\qmat}[1]{{\left(\begin{array}{rrrr}#1\end{array}\right)}}
+\newcommand{\pmat}[1]{{\left(\begin{array}{rrrrr}#1\end{array}\right)}}
+\newcommand{\proof}{{\sc Proof.}\quad}
+\newcommand{\qed}{\quad$\square$}
+
+\newcommand{\moveup}{\begin{picture}(0,0)(0,0)\end{picture}\vspace*{-8.15mm}}
+\newcommand{\upabit}{\begin{picture}(0,0)(0,0)\end{picture}\vspace*{-5mm}}
+
+\newcommand{\ra}[1]{\xrightarrow{#1}}
+\newcommand{\dra}[2]{\begin{array}{c}\xrightarrow{\text{\scriptsize$#1$}}\\[-2mm]{\text{\scriptsize$#2$}}\end{array}}
+
+
+\date{}
+\author{}
+\title{\sc Solutions to MATH3411 Problems 35-42}
+
+
+\begin{document} \maketitle
+
+\vspace*{-10mm}
+
+\noindent{\bf 35.}
+Here, it is a good idea to draw the decision tree arising from the Huffman algorithm.\\
+However, I am going to be lazy and just write up the steps without drawing anything.
+
+Let us first find the binary Huffman code for $S^1 = S = \{s_1,s_2\}$:
+\[\hspace*{-20mm}\begin{array}{cll}
+  \text{Source} & \text{Step 0}                 & \text{Step 1}\\[1mm]
+    s_1         & p_1 = \frac{2}{3}\;\mathbf{0} & p_{12} = 1\;\mathbf{\emptyset}\\[1mm]
+    s_2         & p_2 = \frac{1}{3}\;\mathbf{1}
+  \end{array}\]
+The binary Huffman code for $S^1$ is 0, 1\,.
+The expected codeword length is 1.
+
+Let us now find the binary Huffman code for $S^2 = \{s_1s_1,s_1s_2,s_2s_1,s_2s_2\}$:
+\[\hspace*{-20mm}\begin{array}{cllll}
+  \text{Source}       & \text{Step 0}                   & \text{Step 1}                     & \text{Step 2}                     & \text{Step 3}\\[1mm]
+    \sigma_1 = s_1s_1 & p_1 = \frac{4}{9}\;\mathbf{  1} & p_1    = \frac{4}{9}\;\mathbf{ 1} & p_{342} = \frac{5}{9}\;\mathbf{0} & p_{3421} = 1\;\mathbf{\emptyset}\\[1mm]
+    \sigma_2 = s_1s_2 & p_2 = \frac{2}{9}\;\mathbf{ 01} & p_{34} = \frac{3}{9}\;\mathbf{00} & p_1     = \frac{4}{9}\;\mathbf{1}\\[1mm]
+    \sigma_3 = s_2s_1 & p_3 = \frac{2}{9}\;\mathbf{000} & p_2    = \frac{2}{9}\;\mathbf{01}\\[1mm]
+    \sigma_4 = s_2s_2 & p_4 = \frac{1}{9}\;\mathbf{001}
+\end{array}\]
+In other words, the binary Huffman code for $\sigma_1,\dots,\sigma_4$ is 1, 01, 000, 001\,.
+\\The expected codeword length is $1 + \frac{5}{9} + \frac{3}{9} = \frac{17}{9} \approx 1.889$ (using Knuth's theorem).
+
+Finally,
+let us find the binary Huffman code for $S^3 = \{s_1s_1s_1,s_1s_1s_2,s_1s_2s_1,s_2s_1s_1,s_1s_2s_2,s_2s_1s_2,s_2s_2s_1,s_1s_1s_1\}$:
+{\scriptsize\[\hspace*{-5mm}\begin{array}{cllllllll}
+  \text{Source}              & \text{Step 0}                          & \text{Step 1}                            & \text{Step 2}                            & \text{Step 3}                            & \text{Step 4}                           & \text{Step 5}                                & \text{Step 6}                           & \text{Step 7}\\[1mm]
+    \sigma_1 \!=\! s_1s_1s_1 & p_1 \!=\! \frac{8}{27}\;\mathbf{  01} & p_1    \!=\! \frac{8}{27}\;\mathbf{ 01} & p_1    \!=\! \frac{8}{27}\;\mathbf{ 01} & p_1     \!=\! \frac{8}{27}\;\mathbf{ 01} & p_{23}  \!=\! \frac{8}{27}\;\mathbf{00} &   p_{47856} \!=\! \frac{11}{27}\;\mathbf{ 1} & \!p_{231}   \!=\! \frac{16}{27}\;\mathbf{0} & \!p_{23147856} \!=\! 1\;\mathbf{\emptyset}\\[1mm]
+    \sigma_2 \!=\! s_1s_1s_2 & p_2 \!=\! \frac{4}{27}\;\mathbf{ 000} & p_2    \!=\! \frac{4}{27}\;\mathbf{000} & p_{56} \!=\! \frac{4}{27}\;\mathbf{ 11} & p_{478} \!=\! \frac{7}{27}\;\mathbf{ 10} & p_1     \!=\! \frac{8}{27}\;\mathbf{01} & \!p_{23}    \!=\! \frac{ 8}{27}\;\mathbf{00} & \!p_{47856} \!=\! \frac{11}{27}\;\mathbf{1}\\[1mm]
+    \sigma_3 \!=\! s_1s_2s_1 & p_3 \!=\! \frac{4}{27}\;\mathbf{ 001} & p_3    \!=\! \frac{4}{27}\;\mathbf{001} & p_2    \!=\! \frac{4}{27}\;\mathbf{000} & p_{56}  \!=\! \frac{4}{27}\;\mathbf{ 11} & p_{478} \!=\! \frac{7}{27}\;\mathbf{10} &   p_1       \!=\! \frac{ 8}{27}\;\mathbf{01}\\[1mm]
+    \sigma_4 \!=\! s_2s_1s_1 & p_4 \!=\! \frac{4}{27}\;\mathbf{ 100} & p_4    \!=\! \frac{4}{27}\;\mathbf{100} & p_3    \!=\! \frac{4}{27}\;\mathbf{001} & p_2     \!=\! \frac{4}{27}\;\mathbf{000} & p_{56}  \!=\! \frac{4}{27}\;\mathbf{11}\\[1mm]
+    \sigma_5 \!=\! s_1s_2s_2 & p_5 \!=\! \frac{2}{27}\;\mathbf{ 110} & p_{78} \!=\! \frac{3}{27}\;\mathbf{101} & p_4    \!=\! \frac{4}{27}\;\mathbf{100} & p_3     \!=\! \frac{4}{27}\;\mathbf{001}\\[1mm]
+    \sigma_6 \!=\! s_2s_1s_2 & p_6 \!=\! \frac{2}{27}\;\mathbf{ 111} & p_5    \!=\! \frac{2}{27}\;\mathbf{110} & p_{78} \!=\! \frac{3}{27}\;\mathbf{101}\\[1mm]
+    \sigma_7 \!=\! s_2s_2s_1 & p_7 \!=\! \frac{2}{27}\;\mathbf{1010} & p_6    \!=\! \frac{2}{27}\;\mathbf{111}\\[1mm]
+    \sigma_8 \!=\! s_2s_2s_2 & p_8 \!=\! \frac{1}{27}\;\mathbf{1011}
+\end{array}\]}
+In other words, the binary Huffman code for $\sigma_1,\dots,\sigma_8$ is
+\[
+  01,\, 000,\, 001,\, 100,\, 110,\, 111,\, 1010,\, 1011
+\]
+By Knuth's theorem, the expected codeword length then:
+     \[
+       L = 1
+         + \frac{16}{27}
+         + \frac{11}{27}
+         + \frac{ 8}{27}
+         + \frac{ 7}{27}
+         + \frac{ 4}{27}
+         + \frac{ 3}{27}
+         = \frac{76}{27}
+         \approx 2.81 \]
+
+The average codeword length per binary symbol for $S^1$, $S^2$, and $S^3$ is
+\[
+        L^{(1)} = 1\qquad
+  \frac{L^{(2)}}{2} = \frac{17}{18} \approx 0.944\qquad
+  \frac{L^{(3)}}{3} = \frac{76}{81} \approx 0.938\qquad
+\]
+
+\newpage\noindent{\bf 36.}
+\begin{itemize}
+  \item[{a)}] The characteristic polynomial of $M$ is
+    \[
+      p_M(x) = \det(M-xI)
+             = \det \tmat{\frac{1}{3}-x & \frac{1}{4}   & \frac{1}{4}\\[1mm]
+                          \frac{1}{3}   & \frac{1}{2}-x & \frac{1}{4}\\[1mm]
+                          \frac{1}{3}   & \frac{1}{4}   & \frac{1}{2}-x}
+             = -x^3 + \frac{4}{3}x^2 - \frac{17}{48}x + \frac{1}{48}
+             = \frac{1}{48}(x-1)(12x - 1)(4x - 1)
+    \]
+    We see that $M$ has eigenvalues $1$, $\frac{1}{4}$, and $\frac{1}{12}$.\\
+    Let us now solve $(M-I)\vec{p} = 0$ to find the equilibrium probabilities $\vec{p}$:
+   \begin{align*}
+    \tmat{-\frac{2}{3} &  \frac{1}{4} &  \frac{1}{4}\\[1mm]
+           \frac{1}{3} & -\frac{1}{2} &  \frac{1}{4}\\[1mm]
+           \frac{1}{3} &  \frac{1}{4} & -\frac{1}{2}}
+    \dra{R_2 = R_2 + \frac{1}{2} R_1}{R_3 = R_1 + \frac{1}{2} R_1}
+    \tmat{-\frac{2}{3} &  \frac{1}{4} &  \frac{1}{4}\\[1mm]
+               0       & -\frac{3}{8} &  \frac{3}{8}\\[1mm]
+               0       &  \frac{3}{8} & -\frac{3}{8}}
+    \dra{R_3 = R_3 + R_2}{R1 = -\frac{3}{2}R1}
+   &\tmat{     1       & -\frac{3}{8} & -\frac{3}{8}\\[1mm]
+               0       & -\frac{3}{8} &  \frac{3}{8}\\[1mm]
+               0       &     0        &      0}\\
+    \dra{R_1 = R_1 - R_2}{R2 = -\frac{8}{3}}
+   &\tmat{     1       &     0        & -\frac{3}{4}\\[1mm]
+               0       &     1        &  -1         \\[1mm]
+               0       &     0        &      0}
+   \end{align*}
+   The eigenvectors of $M$ for the eigenvalue~$1$ are thus \, $t\vc{\frac{3}{4}\\1\\1}$ \, for all $t\neq 0$.
+   \\Of these, $\vec{p}$ is the one with $1 = t\frac{3}{4} + t + t = t\frac{11}{4}$;
+    i.e., $t = \frac{4}{11}$.
+   \\Therefore, $\vec{p} = \frac{1}{11}\vc{3\\4\\4}$.
+  \item[{b)}] There might well be a better way to answer this (without referring to Markov literature)
+    but here is one way.
+    Let $\vec{v}_1$ and $\vec{v}_2$ be eigenvectors of $M$ for $\frac{1}{4}$ and $\frac{1}{2}$, respectively.
+    Then we can diagonalise $M$ as $M = N^{-1}DM$ where $N$ has columns $\vec{p},\vec{v}_1,\vec{v}_2$,
+    and $D = \text{diag}(1,\frac{1}{4},\frac{1}{2})$.
+    Then
+    \[
+        \lim_{n\to\infty} M^n
+      = \lim_{n\to\infty} (N^{-1}DN)^n
+      = \lim_{n\to\infty} N^{-1}D^nN
+      = \lim_{n\to\infty} N^{-1}
+        \vc{1^n \!&\!       0                  \!&\! 0\\
+             0  \!&\!\!\!\Bigl(\frac{1}{4}\Bigr)^n\!\! \!&\! 0\\
+             0  \!&\!       0                  \!&\! \!\!\Bigl(\frac{1}{2}\Bigr)^n\!}N
+      = N^{-1}
+        \vc{1 \!&\! 0 \!&\! 0\\
+              0 \!&\! 0 \!&\! 0\\
+              0 \!&\! 0 \!&\! 0}N
+    \]
+    We see that $M^\infty := \lim{n\to \infty} M^n$ does indeed exist.
+    To see what $M^\infty$ is, you might be able to stare hard at the expression above;
+    to be honest, I can't see it myself but it probably isn't difficult.
+    Instead, let us calculate $M^\infty$ in another way:
+    First note that $M^\infty \vec{p} = \lim_{n\to\infty}M^n\vec{p} = \lim_{n\to\infty}p = p$,
+    so $M^\infty$ has $\vec{p}$ as eigenvector for the eigenvalue~1.
+    Similarly, $\vec{v}_1$ and $\vec{v}_2$ are eigenvectors of $M^\infty$ with eigenvalues $\frac{1}{4}$ and $\frac{1}{2}$.
+    Thus, $M^\infty$ has three eigenvalues, the same number as the size of $M$,
+    so the dimension of the eigenspace~$E_1$ for the eigenvalue~$1$ is 1.
+    In other words, the eigenvectors of $M^\infty$ for the eigenvalue~1
+    is the span of $\vec{p}$.
+    There is thus only the vector $\vec{p}$ that is an eigenvector for~1 and has unit length.
+    Now note that $MM^\infty = M^\infty$.
+    Letting $A_i$ denote the $i$th column of any matrix $A$,
+    we see that, for any $i = 1,2,3$,
+    $M(M^\infty)_i  = (MM^\infty)_i = (M^\infty)_i$.
+    In other words, each of the three columns $(M^\infty)_i$ is an eigenvector for the eigenvalue~1;
+    they must therefore be scalar multiples of $\vec{p}$.
+    However, each column of $M^\infty$ has unit length
+    (since the columns of $M$ have unit length, $M^T$ has the all-1 vector as eigenvector, as does therefore $M^\infty$)
+    and must therefore equal $\vec{p}$.
+    To conclude, the columns of $M^\infty$ all equal $\vec{p}$.
+\end{itemize}
+
+
+\newpage\noindent{\bf 37.}
+\begin{itemize}
+  \item[{a)}]
+    Let us now solve $(M-I)\vec{p} = 0$ to find the equilibrium vector $\vec{p}$:
+   \begin{align*}
+    \tmat{-0.3 &  0.2 &  0.1\\[1mm]
+           0.2 & -0.4 &  0.4\\[1mm]
+           0.1 &  0.2 & -0.5}
+    \dra{R_1 = R_1 + 3R_3}{R_2 = R_2 - 2R_3}
+    \tmat{ 0   &  0.8 & -1.4\\[1mm]
+           0   & -0.8 &  1.4\\[1mm]
+           0.1 &  0.2 & -0.5}
+    \dra{R1 = R_1 + R_2}{R3 = 4R3}
+   &\tmat{ 0   &  0   &  0\\[1mm]
+           0   & -0.8 &  1.4\\[1mm]
+           0.4 &  0.8 & -2  }\\
+    \ra{R_3 = R_3 + R_2}
+   &\tmat{ 0   &  0   &  0\\[1mm]
+           0   & -0.8 &  1.4\\[1mm]
+           0.4 &  0   & -0.6}
+   \end{align*}
+   The eigenvectors of $M$ for the eigenvalue~$1$ are thus \, $t(\frac{0.6}{0.4},\frac{1.4}{0.8},1)^T = t(\frac{3}{2},\frac{7}{4},1)^T$ \, for all $t\neq 0$.
+   \\Of these, $\vec{p}$ is the one with $1 = t\frac{7}{4} + \frac{3}{2}t + t = t\frac{17}{4}$;
+    i.e., $t = \frac{4}{17}$.
+   \\Therefore, $\vec{p} = \frac{1}{17}\vc{6\\7\\4}$.
+
+   Let us now calculate the Huffman codes
+   $\text{Huff}_\text{E}$,
+   $\text{Huff}_{(2)}$,
+   $\text{Huff}_{(2)}$,
+   $\text{Huff}_{(3)}$:
+   \[\begin{array}{ccc}
+       \text{Source} & p_i           & \text{Huff}_E\\[2mm]\hline\\[-2mm]
+         s_1         & \frac{6}{17}  &        00    \\[2mm]
+         s_2         & \frac{7}{17}  &   \ph{1}1    \\[2mm]
+         s_3         & \frac{4}{17}  &        01
+     \end{array}\qquad
+     \begin{array}{ccc}
+       \text{Source} & p_i           & \text{Huff}_{(1)}\\[2mm]\hline\\[-2mm]
+         s_1         & 0.7           &   \ph{1}0    \\[2mm]
+         s_2         & 0.2           &        10    \\[2mm]
+         s_3         & 0.1           &        11
+     \end{array}\qquad
+     \begin{array}{ccc}
+       \text{Source} & p_i           & \text{Huff}_{(2)}\\[2mm]\hline\\[-2mm]
+         s_1         & 0.2           &        10    \\[2mm]
+         s_2         & 0.6           &   \ph{1}0    \\[2mm]
+         s_3         & 0.2           &        11
+     \end{array}\qquad
+     \begin{array}{ccc}
+       \text{Source} & p_i           & \text{Huff}_{(3)}\\[2mm]\hline\\[-2mm]
+         s_1         & 0.1           &        01    \\[2mm]
+         s_2         & 0.4           &        00    \\[2mm]
+         s_3         & 0.5           &   \ph{1}1
+     \end{array}\]
+   The average lengths of these codes
+   \[
+     L_E        = \frac{28}{17}\approx 1.65\qquad
+     L_{(1)}    = 1.3\qquad
+     L_{(2)}    = 1.4\qquad
+     L_{(3)}    = 1.6
+   \]
+   The Markov Huffman code has average length
+   \[
+     L_M = \frac{6}{17}L_{(1)}
+         + \frac{7}{17}L_{(2)}
+         + \frac{4}{17}L_{(3)}
+         = \frac{6}{17}1.3
+         + \frac{7}{17}1.4
+         + \frac{4}{17}1.6
+         \approx 1.41
+   \]
+   This is less than $L_E \approx 1.65$,
+   and only about $\frac{L_M}{L_\text{block}} = \frac{1.41}{2} \approx 71\%$ of the block code length.
+\item[{b)}] We encode $s_2s_2s_1s_1s_2s_3s_3$:
+  \[\begin{array}{clc}
+     \text{symbol} & \text{code to use} & \text{encoded symbol}\\\hline
+          s_2 & \text{Huff}_E     & \ph{1}1\\
+          s_2 & \text{Huff}_{(2)} & \ph{1}0\\
+          s_1 & \text{Huff}_{(2)} &      10\\
+          s_1 & \text{Huff}_{(1)} & \ph{1}0\\
+          s_2 & \text{Huff}_{(1)} &      10\\
+          s_3 & \text{Huff}_{(2)} &      11\\
+          s_3 & \text{Huff}_{(3)} & \ph{1}1
+    \end{array}\]
+so this is encoded as \, $1 0 10 0 10 11 1$\,.
+\item[{c)}] We decode $01 00 0 10 10$\,:
+  \[\begin{array}{lcc}
+     \text{code to use}  & \text{encoded symbol} & \text{decoded symbol}\\\hline
+       \text{Huff}_E     &           01          &          s_3         \\
+       \text{Huff}_{(3)} &           00          &          s_2         \\
+       \text{Huff}_{(2)} &      \ph{x}0          &          s_2         \\
+       \text{Huff}_{(2)} &           10          &          s_1         \\
+       \text{Huff}_{(1)} &           10          &          s_2
+    \end{array}\]
+so this is decoded as \, $s_3s_2s_2s_1s_2$\,.
+\end{itemize}
+
+
+\bigskip\noindent{\bf 38.}
+We wish to encode the message \, $bac\,\bullet$\,:
+\[\begin{array}{ccc}
+                       &\text{\bf subinterval start}                                       & \text{\bf width}\\\hline
+    \text{symbols}\quad&                   0                                               &            1     \\[2mm]
+          b            & 0 + \frac{2}{5}\times 1 = \frac{2}{5}                             & \frac{1}{5}\times1             = \frac{1}{  5}\\[2mm]
+          a            & \frac{2}{5} + 0\times\frac{1}{5} = \frac{2}{5}                    & \frac{2}{5}\times\frac{1}{  5} = \frac{2}{ 25}\\[2mm]
+          c            & \frac{2}{5} + \frac{3}{5}\times\frac{2}{25} = \frac{56}{125}      & \frac{1}{5}\times\frac{2}{ 25} = \frac{2}{125}\\[2mm]
+       \bullet         & \frac{56}{125} + \frac{4}{5}\times\frac{2}{125} = \frac{288}{625} & \frac{1}{5}\times\frac{2}{125} = \frac{2}{625}\\[2mm]
+  \end{array}\]
+We must therefore choose a number in the interval $[\frac{288}{625}, \frac{290}{625}) = [0.4608, 0.4640)$, like $0.4620$ say.
+
+
+\bigskip\noindent{\bf 39.}
+\begin{itemize}
+  \item[{a)}] We wish to encode the message \quad $s_2s_1s_3s_1\,\bullet$\,:
+  \[\begin{array}{crlc}
+                      &\text{\bf subinterval start}    &          & \text{\bf width}\\\hline
+    \text{begin}\quad &                                &0         &                   1  \\
+         s_2          & 0       + 0.4\times 1      \;= &0.4       & 0.3\times1      = 0.3\\
+         s_1          & 0.4     + 0  \times 0.3    \;= &0.4       & 0.4\times0.3    = 0.12\\
+         s_3          & 0.4     + 0.7\times 0.12   \;= &0.484     & 0.2\times0.12   = 0.024\\
+         s_1          & 0.484   + 0  \times 0.024  \;= &0.484     & 0.4\times0.024  = 0.0096\\
+       \bullet        & 0.484   + 0.9\times 0.0096 \;= &0.49264   & 0.1\times0.096  = 0.00096
+   \end{array}\]
+  We must pick a number in the interval $[0.49264,0.49264+0.00096) = [0.49264,0.4936)$, like $0.493$ say.
+  \item[{b)}] We wish to decode the number \, 0.12345\,:
+    \[\begin{array}{ccc}
+      \text{\bf code number rescaled}      & \quad\text{\bf in interval}  \quad  & \text{\bf decoded symbol}\\
+          0.12345                          &               [0  ,0.4)             &            s_1           \\
+         (0.12345 -0)/.4     = 0.308625    &               [0  ,0.4)             &            s_1           \\
+         (0.308625-0)/.4     = 0.7715625   &               [0.7,0.9)             &            s_3           \\
+         (0.7715625-0.7)/.2  = 0.3578125   &               [0  ,0.4)             &            s_1           \\
+         (0.3578125-0)/.4    = 0.89453125  &               [0.7,0.9)             &            s_3           \\
+         (0.89453125-0.7)/.4 = 0.97265625  &               [0.9,1  )             &          \bullet
+      \end{array}\]
+  The decoded message is then $s_1s_1s_3s_1s_3\,\bullet$\,.
+\end{itemize}
+
+
+\newpage\noindent{\bf 40.}
+\begin{itemize}
+  \item[{a)}] We wish to encode the message \quad ma\tvs na\tvs ma\tvs na\tvs doo\tvs doo\tvs doo\tvs doo\tvs doo\tvs ma\tvs na\tvs ma\tvs na\tvs doo\tvs doo\tvs doo\tvs\,:
+    \[\renewcommand{\arraystretch}{1.1}\small
+      \begin{tabular}{|r|l|r|l|l|}\hline
+                                                                                                                                $r$&$s$        &$\ell$     & {\bf new entry } & {\bf output} \\\hline
+       ma\tvs na\tvs ma\tvs na\tvs doo\tvs doo\tvs doo\tvs doo\tvs doo\tvs ma\tvs na\tvs ma\tvs na\tvs doo\tvs doo\tvs doo\tvs doo &$\emptyset$&   0       & 1. \quad m                   & (0,m) \\
+        a\tvs na\tvs ma\tvs na\tvs doo\tvs doo\tvs doo\tvs doo\tvs doo\tvs ma\tvs na\tvs ma\tvs na\tvs doo\tvs doo\tvs doo\tvs doo &$\emptyset$&   0       & 2. \quad a                   & (0,a) \\
+         \tvs na\tvs ma\tvs na\tvs doo\tvs doo\tvs doo\tvs doo\tvs doo\tvs ma\tvs na\tvs ma\tvs na\tvs doo\tvs doo\tvs doo\tvs doo &$\emptyset$&   0       & 3. \quad \tvs                & (0,\tvs) \\
+              na\tvs ma\tvs na\tvs doo\tvs doo\tvs doo\tvs doo\tvs doo\tvs ma\tvs na\tvs ma\tvs na\tvs doo\tvs doo\tvs doo\tvs doo &$\emptyset$&   0       & 4. \quad n                   & (0,n) \\
+               a\tvs ma\tvs na\tvs doo\tvs doo\tvs doo\tvs doo\tvs doo\tvs ma\tvs na\tvs ma\tvs na\tvs doo\tvs doo\tvs doo\tvs doo &     a     &   2       & 5. \quad a\tvs               & (2,\tvs) \\
+                     ma\tvs na\tvs doo\tvs doo\tvs doo\tvs doo\tvs doo\tvs ma\tvs na\tvs ma\tvs na\tvs doo\tvs doo\tvs doo\tvs doo &     m     &   1       & 6. \quad ma                  & (1,a) \\
+                       \tvs na\tvs doo\tvs doo\tvs doo\tvs doo\tvs doo\tvs ma\tvs na\tvs ma\tvs na\tvs doo\tvs doo\tvs doo\tvs doo &   \tvs    &   3       & 7. \quad \tvs n              & (3,n) \\
+                             a\tvs doo\tvs doo\tvs doo\tvs doo\tvs doo\tvs ma\tvs na\tvs ma\tvs na\tvs doo\tvs doo\tvs doo\tvs doo &  a\tvs    &   5       & 8. \quad a\tvs d             & (5,d) \\
+                                    oo\tvs doo\tvs doo\tvs doo\tvs doo\tvs ma\tvs na\tvs ma\tvs na\tvs doo\tvs doo\tvs doo\tvs doo &$\emptyset$&   0       & 9. \quad o                   & (0,o) \\
+                                     o\tvs doo\tvs doo\tvs doo\tvs doo\tvs ma\tvs na\tvs ma\tvs na\tvs doo\tvs doo\tvs doo\tvs doo &     o     &   9       & 10.\quad o\tvs               & (9,\tvs)\\
+                                           doo\tvs doo\tvs doo\tvs doo\tvs ma\tvs na\tvs ma\tvs na\tvs doo\tvs doo\tvs doo\tvs doo &$\emptyset$&   0       & 11.\quad d                   & (0,d)\\
+                                            oo\tvs doo\tvs doo\tvs doo\tvs ma\tvs na\tvs ma\tvs na\tvs doo\tvs doo\tvs doo\tvs doo &     o     &   9       & 12.\quad oo                  & (9,o)\\
+                                              \tvs doo\tvs doo\tvs doo\tvs ma\tvs na\tvs ma\tvs na\tvs doo\tvs doo\tvs doo\tvs doo &   \tvs    &   3       & 13.\quad \tvs d              & (3,d)\\
+                                                    oo\tvs doo\tvs doo\tvs ma\tvs na\tvs ma\tvs na\tvs doo\tvs doo\tvs doo\tvs doo &    oo     &  12       & 14.\quad oo\tvs              & (12,\tvs)\\
+                                                           doo\tvs doo\tvs ma\tvs na\tvs ma\tvs na\tvs doo\tvs doo\tvs doo\tvs doo &    do     &  11       & 15.\quad do                  & (11,o)\\
+                                                             o\tvs doo\tvs ma\tvs na\tvs ma\tvs na\tvs doo\tvs doo\tvs doo\tvs doo &  o\tvs    &  10       & 16.\quad o\tvs d             & (10,d)\\
+                                                                    oo\tvs ma\tvs na\tvs ma\tvs na\tvs doo\tvs doo\tvs doo\tvs doo & oo\tvs    &  14       & 17.\quad oo\tvs m            & (14,m)\\
+                                                                            a\tvs na\tvs ma\tvs na\tvs doo\tvs doo\tvs doo\tvs doo &  a\tvs    &   5       & 18.\quad a\tvs n             & (5,n)\\
+                                                                                   a\tvs ma\tvs na\tvs doo\tvs doo\tvs doo\tvs doo &  a\tvs    &   5       & 19.\quad a\tvs m             & (5,m)\\
+                                                                                          a\tvs na\tvs doo\tvs doo\tvs doo\tvs doo &  a\tvs n  &  18       & 20.\quad a\tvs na            & (18,a)\\
+                                                                                                  \tvs doo\tvs doo\tvs doo\tvs doo &   \tvs d  &  13       & 21.\quad  \tvs do            & (13,o)\\
+                                                                                                         o\tvs doo\tvs doo\tvs doo &  o\tvs d  &  16       & 22.\quad o\tvs do            & (16,o)\\
+                                                                                                                 o\tvs doo\tvs doo &  o\tvs do &  22       & 23.\quad o\tvs doo           & (22,o)\\
+                                                                                                                          \tvs doo &  \tvs do  &  21       & 24.\quad  \tvs doo           & (21,o)\\\hline\end{tabular}\]
+  The encoded message is then
+  \begin{center}
+    (0,m)(0, a)(0,\tvs )(0, n)(2,\tvs)(1, a)(3, n)(5, d)(0, o), (9,\tvs)(0, d)(9, o)(3, d)(12,\tvs)(11, o)(10, d)(14,m)(5, n)(5,m)(18, a)(13, o)(16, o)(22, o)(21, o)
+  \end{center}
+  \item[{b)}]
+  Let us decode the codeword (0,t)(0,o)(0,\tvs)(0,b)(0,e)(3,o)(0,r)(3,n)(2,t)(3,t)(2,\tvs)(4,e)\,:
+    \[\begin{tabular}{|l|l|}\hline
+      {\bf output} & {\bf new dictionary entry}\\\hline
+           (0,t)   & 1. \quad t \\[-.5mm]
+           (0,o)   & 2. \quad o \\[-.5mm]
+           (0,\tvs)& 3. \quad \tvs \\[-.5mm]
+           (0,b)   & 4. \quad b \\[-.5mm]
+           (0,e)   & 5. \quad e \\[-.5mm]
+           (3,o)   & 6. \quad \tvs o \\[-.5mm]
+           (0,r)   & 7. \quad r \\[-.5mm]
+           (3,n)   & 8. \quad \tvs n \\[-.5mm]
+           (2,t)   & 9. \quad ot \\[-.5mm]
+           (3,t)   & 10.\quad \tvs t \\[-.5mm]
+           (2,\tvs)& 11.\quad o\tvs \\[-.5mm]
+           (4,e)   & 12.\quad be\\\hline
+      \end{tabular}\]
+  The decoded text is \, ``to be or not to be".
+  \end{itemize}
+
+\newpage\noindent{\bf 41.}
+$H(S) = -\frac{2}{3}\log_2\frac{1}{3}-\frac{3}{9}\log_2\frac{1}{9}
+      =  \frac{2}{3}\log_2 3 + \frac{6}{9}\log_2 3
+      =  \frac{4}{3}\log_2 3
+      \approx 2.113$
+
+\bigskip\noindent{\bf 42.}
+\begin{itemize}
+  \item[{Q29:}]
+    \begin{itemize}
+      \item[{\bf a)}] $H(S) = -\frac{1}{2}\log_2\frac{1}{2} -\frac{1}{3}\log_2\frac{1}{3} -\frac{1}{6}\log_2\frac{1}{6} \approx 1.459$
+        \\The average length $L = 1.5 > H(S)$ - but pretty close.
+      \item[{\bf b)}] $H(S) = -\frac{1}{3}\log_2\frac{1}{3} -\frac{1}{4}\log_2\frac{1}{4} -\frac{1}{5}\log_2\frac{1}{5} -\frac{1}{6}\log_2\frac{1}{6} -\frac{1}{20}\log_2\frac{1}{20} \approx 2.140$
+        \\The average length $L = 2.217 > H(S)$ - but not far off.
+      \item[{\bf c)}] $H(S) = -\frac{1}{2}\log_2\frac{1}{2} -\frac{1}{4}\log_2\frac{1}{4} -\frac{1}{8}\log_2\frac{1}{8} -\frac{1}{16}\log_2\frac{1}{16} -\frac{1}{16}\log_2\frac{1}{16} \approx 1.875$
+        \\The average length $L = 1.875 = H(S)$ - exactly the same!
+      \item[{\bf d)}] $H(S) = -\frac{27}{40}\log_2\frac{27}{40} -\frac{9}{40}\log_2\frac{9}{40} -\frac{3}{40}\log_2\frac{3}{40} -\frac{1}{40}\log_2\frac{1}{40} \approx 1.280$
+        \\The average length $L = 1.425 > H(S)$ - not too far off.
+    \end{itemize}
+  \item[{Q33:}] $H(S) = -0.22\log_4 0.22 -0.2\log_4 0.2 - 0.18\log_4 0.18 - 0.15\log_4 0.15 - 0.10\log_4 0.10 - 0.08\log_4 0.08 - 0.05\log_4 0.05 - 0.02\log_2 0.02  \approx 1.377$
+        \\The average length $L =  1.47 > H(S)$ - but pretty close.
+  \item[{Q35:}] $H(S^1) = -\frac{2}{3}\log_2\frac{2}{3} -\frac{1}{3}\log_2\frac{1}{3} \approx 0.918$
+        \\$H(S^2) = 2H(S^1) \approx 1.837$
+        \\$H(S^3) = 3H(S^1) \approx 2.755$
+        \\The corresponding average lengths are $1$, 1.889 and 2.815, respectively.
+        \\These are all greater than the corresponding entropies - but not by a lot.
+  \item[{Q39:}] $H(S) = -0.4\log_{10}0.4 -0.3\log_{10}0.3 - 0.2\log_{10}0.2 -0.1\log_{10}0.1 \approx 0.5558$ digits/symbol.
+        \\The 5-symbol message $s_2s_1s_3s_1\,\bullet$ was encoded as $0.493$, so $\frac{3}{5} = 0.6$ digits per symbol were used,
+        \\which is more than 0.5558 but not by a lot.
+\end{itemize}
+
+
+\end{document}
+

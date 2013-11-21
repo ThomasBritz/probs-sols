@@ -1,0 +1,339 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,latexsym}
+
+\parindent 0in
+\addtolength{\textwidth}{52mm}
+\addtolength{\oddsidemargin}{-28mm}
+\addtolength{\evensidemargin}{-26mm}
+\addtolength{\topmargin}{-20mm}
+\addtolength{\textheight}{40mm}
+
+\newcommand{\ds}{\displaystyle}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+\newcommand{\vc}[1]{\begin{pmatrix}#1\end{pmatrix}}
+\newcommand{\tmat}[1]{{\left(\begin{array}{rrr}#1\end{array}\right)}}
+\newcommand{\qmat}[1]{{\left(\begin{array}{rrrr}#1\end{array}\right)}}
+\newcommand{\pmat}[1]{{\left(\begin{array}{rrrrr}#1\end{array}\right)}}
+\newcommand{\proof}{{\sc Proof.}\quad}
+\newcommand{\qed}{\quad$\square$}
+
+\newcommand{\moveup}{\begin{picture}(0,0)(0,0)\end{picture}\vspace*{-8.15mm}}
+\newcommand{\upabit}{\begin{picture}(0,0)(0,0)\end{picture}\vspace*{-5mm}}
+
+
+\date{}
+\author{}
+\title{\sc Solutions to MATH3411 Problems 1--9}
+
+
+\begin{document} \maketitle
+
+\vspace*{-10mm}
+
+\noindent{\bf 1.}
+\begin{itemize}
+  \item[{a)}]
+     Since $n$ is not a prime,
+     we can write $n = km$ where $k,m>1$ are integers.
+     Suppose that $k,m>\sqrt{n}$;
+     then $n = km > (\sqrt{n})^2 = n$,
+     a contradiction.
+     We see that either $k\leq\sqrt{n}$ or $m\leq\sqrt{n}$;
+     in particular, one of these integers - and thus $n$ -
+     then has a proper factor less than or equal to $\sqrt{n}$.
+  \item[{b)}]
+     Assume that $n$ is not a prime.
+     By part a), $n$ has a prime factor less than or equal to 20.
+     The prime factors of $51051$ are 3, 7, 11, 13, and 17,
+     so if $\text{gcd}\,(n,51051) = 1$,
+     then none of these prime factors divide $n$.
+     If $n$ furthermore does not have 2 or 5 as a prime factor,
+     then this just leaves 19 as $n$'s only prime factor,
+     so $n$ is a power of 19, namely 19, $19^2 = 361$, $19^3$, or greater.
+     However, $18\leq n\leq 400$ and $n\geq 361$,
+     so none of these are possible.
+
+     We conclude that $n$ must be a prime.
+  \item[{c)}]
+     We just have to check whether any of the numbers 2, 3, 5, 7, 11, 13, 17
+     divide $n=323$ and $n=373$, respectively.
+     We find that none divide 373 (so it is prime) but that $323 = 17\times 19$.
+\end{itemize}
+
+\noindent{\bf 2.} (Extended result, proving that if $a^n-1$ is prime, then $a=2$ and $n$ is prime.)\\
+Suppose that $a^n-1$ is prime and write $n = pq$ where $p$~is a prime factor of~$n$.
+Now,
+\[
+  \begin{array}{rccrrrrrrrrrr}
+    a^{pq} - 1 &=& a^{pq}&+&a^{(p-1)q}&+&\cdots&+&a^{q}& &\\
+               & &       &-&a^{(p-1)q}&-&\cdots&-&a^{q}&-&1&=&(a^q\!-\!1)(a^{(p-1)q}+\cdots+a^{q}+1)
+  \end{array}
+\]
+
+Since $a^n-1=a^{pq}-1$ is prime,
+one of the two terms above must be~1.
+Since $a^{(p-1)q}+\cdots+a^{q}+1>1$,
+we have $a^q-1=1$.
+Therefore,
+$a^q=2$,
+so $a=2$ and $q=1$,
+and $n=p$ is prime.
+
+Suppose that $2^n+1$ is prime and write $n = rt$ where $r,t>1$ are positive integers.\\
+Assume that $n$ is not a power of 2; then $r$ or $s$ is odd, say $s$.
+%Now, for any positive integers $a$, $b$, and $m$,
+%\[
+%  \begin{array}{rccrrrrrrrrrr}
+%    a^m - b^m &=& a^m&+&a^{m-1}b&+&\cdots&+&ab^{m-1}\\
+%              & &    &-&a^{m-1}b&-&\cdots&-&ab^{m-1}& -&b^n
+%              &=&(a-b)(a^{m-1} + a^{m-1}b + \cdots + ab^{m-2} + b^{m-1})\end{array}
+%\]
+%Therefore, $a - b \mid a^m - b^m$.
+%Set $a = 2^r$, $b = -1$, and $m=s$;
+Now, for any positive integer $a$, 
+\[
+  \begin{array}{rccrrrrrrrrrrrrrr}
+    a^s + 1  &=& a^s&-&a^{s-1}&+&a^{s-1}&\cdots&-&a^2&+&a\\
+             & &    &+&a^{s-1}&-&a^{s-1}&\cdots&+&a^2&-&a&+&1
+             &=&(a+1)(a^{s-1} - a^{s-2} + \cdots - a + 1)\end{array}
+\]
+Therefore, $a + 1 \mid a^s + 1$.
+Set $a = 2^r$;
+we then see that $2^r + 1$ divides $(2^r)^s + 1 = 2^n + 1$.
+But $r<n$, so $2^r+1$ cannot equal $2^n+1$ and is therefore a factor of $2^n+1$,
+which means that $2^n + 1$ is not prime, a contradiction.
+
+We conclude that $n$ is a power of~2.
+
+\bigskip
+\noindent{\bf 3.} \moveup
+\begin{itemize}
+  \item[{a)}] $\frac{1}{13}$
+  \item[{b)}] $\frac{1}{3}$
+  \item[{c)}] $\frac{1}{13}$
+  \item[{d)}] ``Pick a Queen" and ``pick a face card" are both independent of ``pick a black card"
+              but are not independent of each other.
+\end{itemize}
+
+\bigskip
+\noindent{\bf 4.}
+(It is perhaps easiest for understanding to draw a tree diagram here but I'll be lazy.)
+\[
+         P(\text{0 received}|\text{0 sent})
+   = 1 - P(\text{1 received}|\text{0 sent})
+   = 1 - 0.1
+   = 0.9
+\]
+so
+\begin{align*}
+      P(0\,\text{received})
+  &=  P(\text{0 received and 0 sent})
+    + P(\text{0 received and 1 sent})\\
+  &=  P(\text{0 received}|\text{0 sent})P(\text{0 sent})
+    + P(\text{0 received}|\text{1 sent})P(\text{1 sent})\\
+  &=  0.9\times 0.5
+    + 0.2\times 0.5 \qquad\text{(since $P(\text{0 sent}) = P(\text{1 sent}) = \textstyle\frac{1}{2}$)}\\
+  &= 0.55
+\end{align*}
+Now, $P(\text{0 received and 0 sent}) = P(\text{0 received}|\text{0 sent})P(\text{0 sent})$,
+so
+\[
+    P(\text{0 received}|\text{0 sent})
+  = \frac{P(\text{0 received and 0 sent})}{P(\text{0 sent})}
+  = \frac{P(\text{0 received}|\text{0 sent})P(\text{0 sent})}{P(\text{0 sent})}
+  = \frac{0.9\times 0.5}{0.55}
+  \approx 0.82
+\]
+
+
+\noindent{\bf 5.}
+Call the door the contestant chooses Door~1
+and the door opened by host Door~2.
+Let $W_i$ be the event ``major prize behind door $i$'',
+and $H_i$ be ``host opens door $i$''.
+We know that $P(W_i)=\frac{1}{3}$ for each $i$ and that
+\[
+    P(H_2\mid W_2)
+  = 0\qquad P(H_2\mid W_3)
+  = 1\qquad P(H_2\mid W_1)
+  = 0.5\,.
+\]
+We want to find $P(W_3 \mid H_2)$.
+Now
+\[
+    P(H_2)
+  = P(H_2\mid W_1) P(W_1) + P(H_2\mid W_2)P(W_2) + P(H_2\mid W_3)P(W_3)
+  = \frac12\times\frac13 + 0\times\frac13 + 1\times\frac13
+  = \frac12
+\]
+so (by Bayes' rule)
+\[
+    P(W_3 \mid H_2)
+  = \frac{P(H_2 \mid W_3)P(W_3)}{P(H_2)}
+  = \frac{1/3}{1/2}
+  = \frac23
+\]
+Given that
+\[
+  P(W_1 \mid H_2) = 1 - P(W_2 \mid H_2) - P(W_3 \mid H_2) = 1 - 0 - \frac{2}{3} = \frac{1}{3}\,,
+\]
+we see that the prize is twice as likely to be behind the third door: so swap.
+
+\newpage
+\noindent{\bf 6.}\moveup
+\begin{itemize}
+  \item[{a)}] $\ds\binom{n}{k}p^k(1-p)^{n-k}$
+  \item[{b)}] $\ds\sum_{j=0}^{\lfloor\frac{n}{2}\rfloor}\binom{n}{2j}p^{2j}(1-p)^{n-2j}$
+  \item[{c)}] Setting $q = 1 - p$ and using the Binomial Theorem,
+  \begin{align*}
+       \frac{  1     + (1-2p)^n}{2}
+    &= \frac{(q+p)^n + (q-p)^n}{2}\\
+    &= \frac{1}{2}\Bigl(
+         \sum_{k=0}^n \binom{n}{k}p^k q^{n-k}
+        +\sum_{k=0}^n \binom{n}{k}(-p)^k q^{n-k}\Bigr)\\
+    &= \frac{1}{2}\Bigl(
+         \sum_{j=0}^{\lfloor\frac{n}{2}\rfloor} \binom{n}{2j}(p^{2j}+p^{2j}) q^{n-2j}
+        +\sum_{j=0}^{\lfloor\frac{n-1}{2}\rfloor}  \binom{n}{2j+1}(p^{2j+1}-p^{2j+1}) q^{n-{2j+1}}\Bigr)\\
+    &= \frac{1}{2}
+         \sum_{j=0}^{\lfloor\frac{n}{2}\rfloor} \binom{n}{2j} 2 p^{2j} q^{n-2j} + 0\\
+    &=   \sum_{j=0}^{\lfloor\frac{n}{2}\rfloor} \binom{n}{2j} p^{2j} q^{n-2j}\\
+    &=   \sum_{j=0}^{\lfloor\frac{n}{2}\rfloor} \binom{n}{2j} p^{2j}(1-p)^{n-2j}
+  \end{align*}
+    We recognise this as the sum in part b).
+\end{itemize}
+
+\bigskip
+\noindent{\bf 7.}\moveup
+\begin{itemize}
+  \item[{a)}] $(1-p)^n = .999^{100} \approx 0.9048$
+  \item[{b)}] By parts b) and c) in Problem {\bf 6},
+    we see that the probability of an undetected error
+    (i.e., the probability of an even, non-zero number of errors)
+    is
+    \[
+        \frac{1 + (1-2p)^n}{2} - (1-p)^n
+      = 0.9092834024 - 0.9047921471
+      = 0.0044912553
+      \approx 0.0045
+    \]
+  \end{itemize}
+
+\bigskip
+\noindent{\bf 8.}\moveup
+  \[
+     (1\times0
+    + 2\times5
+    + 3\times5
+    + 4\times2
+    + 5\times0
+    + 6\times8
+    + 7\times6
+    + 8\times3
+    + 9\times8)
+    \!\!\mod 11
+    = (219 \!\!\mod 11)
+    = 10
+  \]
+  so the first number is a valid ISBN.
+  In contrast,
+  \[
+     (1\times0
+    + 2\times5
+    + 3\times7
+    + 4\times6
+    + 5\times0
+    + 6\times8
+    + 7\times3
+    + 8\times1
+    + 9\times4)
+    \!\!\mod 11
+    = (168 \!\!\mod 11)
+    = 0
+  \]
+  so the second number is not an ISBN;
+  the correct check digit would have been 0.
+
+
+\newpage
+\noindent{\bf 9.}\moveup
+\begin{itemize}
+  \item[{a)}] Since $\ds
+       0
+     \equiv \sum^{10}_{i=1} i x_i
+     \equiv \sum^{9}_{i=1} i x_i + 10 x_{10}
+     \equiv \sum^{9}_{i=1} i x_i - x_{10} \pmod{11}$,
+    we see that $x_{10}$ is given by $x_1,\ldots,x_9$:
+    \[
+      x_{10} = \sum^{9}_{i=1} i x_i \mod{11}
+    \]
+    (If $x_{10} = 10$, then the word is not a valid codeword, so we don't count it.)\\
+    Adding the two congruences gives the congruence
+    \[
+      \sum^{10}_{i=1} (i+1) x_i \equiv 0 \pmod{11}\,\qquad
+      \text{or, since } 11\equiv 0\pmod{11}\,,\qquad
+      \sum^{9}_{i=1} (i+1) x_i \equiv 0 \pmod{11}\,.
+    \]
+    As with $x_{10}$, we see that $2x_1$ and thus $x_1$ depends on $x_2,\ldots,x_9$;
+    in particular,
+    \[
+      2x_1 \equiv -\sum^{9}_{i=2} (i+1) x_i \pmod{11}
+    \]
+    so, since $2^{-1} = 6$ and $-6 = 5$ in $\mathbb{Z}_{11}$,
+    \[
+      x_1 \equiv 5\sum^{9}_{i=2} (i+1) x_i \mod{11}\,.
+    \]
+    We can choose the 8 digits $x_2,\ldots,x_9$ (almost) freely,
+    apart from the estimated $\frac{1}{11}\approx 0.9$ of the time when the congruences will not be satisfied,
+    but then $x_1$ and $x_{10}$ are fixed.
+    Therefore, a rough estimation for $|\mathcal{C}|$ is $10^8$.
+    A slightly better one might be $9\times 10^7$.
+  \item[{b)}]
+    Suppose that ${\bf x} = x_1 \cdots x_{10}\in\mathcal{C}$ is sent
+    and     that ${\bf y} = y_1 \cdots y_{10}$ is received.\\
+    Now assume that exactly 1 error has occured,
+    changing $x_k$ to $y_k = x_k + m$ for some $k$ and $m$.\\
+    Then since ${\bf x}\in\mathcal{C}$,
+    $\ds
+      0\equiv \sum^{10}_{i=1} x_i
+       \equiv \sum^{10}_{i=1} y_i - m\pmod{11}$,
+    we see that $\ds m = \sum^{10}_{i=1} y_i \mod{11}$.\\
+    Similarly,
+    $\ds
+      0\equiv \sum^{10}_{i=1} i x_i
+       \equiv \sum^{10}_{i=1} i y_i - km\pmod{11}$,
+    so $\ds km \equiv \sum^{10}_{i=1} i y_i\pmod{11}$.\\
+    Since 11 is prime,
+    we can thus determine $\ds k = m^{-1}\sum^{10}_{i=1} i y_i\mod{11}$.\\
+    We now know which digit ($k$) is incorrect
+    and by how much it is incorrect ($m$),
+    so we can correct it.
+
+    To show that the code can also detect the error caused by a swapping two
+    digits, just re-use the course notes/slides proof of this property
+    for ISBN.
+  \item[{c)}] Use part b): $\ds
+      m = \sum^{10}_{i=1} y_i \mod{11}
+        = (0+6+8+0+2+7+1+3+8+5) \mod{11} = 7$.\\
+    The inverse of 7 in $\mathbb{Z}_{11}$ is 8,
+    so
+    \begin{align*}
+      k&= m^{-1}\sum^{10}_{i=1} i y_i\mod{11}
+        = 8\sum^{10}_{i=1} i y_i\mod{11}\\
+       &= 8(1\times 0
+          + 2\times 6
+          + 3\times 8
+          + 4\times 0
+          + 5\times 2
+          + 6\times 7
+          + 7\times 1
+          + 8\times 3
+          + 9\times 8
+          +10\times 5)\mod{11}\\
+       &= 3
+    \end{align*}
+    In other words, the 3rd digit is wrong
+    and is 7 too big, modulo 11: it should be $8 - 7 = 1$ (in $\mathbb{Z}_{11}$).
+    The corrected number is then $0610271385$.
+\end{itemize}
+
+\end{document}
